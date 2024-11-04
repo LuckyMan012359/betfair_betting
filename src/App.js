@@ -7,6 +7,7 @@ import TokenInput from "./components/tokenInput";
 import BetfairLoginComponent from "./components/betfairLoginComponent";
 import BetfairMoneyComponent from "./components/betfairMoneyComponent";
 import BetfairSettingComponent from "./components/betfairSettingComponent";
+import MatchOddsComponent from "./components/matchOddsComponent";
 import BetfairStatusComponent from "./components/betfairStatusComponent";
 
 function App() {
@@ -17,8 +18,9 @@ function App() {
         <BetfairLoginComponent />
         <BetfairMoneyComponent />
         <BetfairSettingComponent />
+        <MatchOddsComponent />
         <BetfairStatusComponent />
-      <TableComponent data={data} />
+        <TableComponent data={data} />
       </div>
     </div>
   );
