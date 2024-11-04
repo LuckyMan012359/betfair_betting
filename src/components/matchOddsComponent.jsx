@@ -16,9 +16,17 @@ const MatchOddsComponent = () => {
       <div className="w-[20%] gap-[15px] flex justify-start items-center">
         <p className="w-[180px] font-bold">Minimum Value(%)</p>
         <TextField
-          id="outlined-basic"
+          id="outlined-number"
           size="small"
-          variant="outlined"
+          type="number"
+          slotProps={{
+            inputLabel: {
+              shrink: true,
+            },
+            input: {
+              max: 100,
+            },
+          }}
           className="w-[110px]"
         />
       </div>

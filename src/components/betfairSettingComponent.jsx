@@ -8,9 +8,14 @@ const BetfairSettingComponent = () => {
         <p className="w-[180px] font-bold">Load events for next</p>
         <div className="gap-[30px] flex items-center">
           <TextField
-            id="outlined-basic"
+            id="outlined-number"
             size="small"
-            variant="outlined"
+            type="number"
+            slotProps={{
+              inputLabel: {
+                shrink: true,
+              },
+            }}
             className="w-[110px]"
           />
           <p className="w-[180px] font-bold">minutes</p>
@@ -20,9 +25,14 @@ const BetfairSettingComponent = () => {
         <p className="w-[180px] font-bold">Refresh interval</p>
         <div className="gap-[30px] flex items-center">
           <TextField
-            id="outlined-basic"
+            id="outlined-number"
             size="small"
-            variant="outlined"
+            type="number"
+            slotProps={{
+              inputLabel: {
+                shrink: true,
+              },
+            }}
             className="w-[110px]"
           />
           <p className="w-[180px] font-bold">minutes</p>
