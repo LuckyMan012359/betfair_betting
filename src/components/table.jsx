@@ -1,91 +1,158 @@
+import { Collapse } from "antd";
+import { CaretRightOutlined } from "@ant-design/icons";
 import React from "react";
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Typography,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const TableComponent = ({ data }) => {
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <TableCell>EVENT</TableCell>
-            <TableCell>Predictability</TableCell>
-            <TableCell>Back</TableCell>
-            <TableCell>Adjust Back</TableCell>
-            <TableCell>Lay</TableCell>
-            <TableCell>Adjust Lay</TableCell>
-            <TableCell>Probability</TableCell>
-            <TableCell>Back Value</TableCell>
-            <TableCell>Lay Value</TableCell>
-            <TableCell>K-factor Back</TableCell>
-            <TableCell>K-factor Lay</TableCell>
-            <TableCell>Back Amount</TableCell>
-            <TableCell>Lay Amount</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((event, index) => (
-            <React.Fragment key={index}>
-              <TableRow style={{ backgroundColor: "#D32F2F", color: "white" }}>
-                <TableCell
-                  colSpan={13}
-                  style={{ color: "white", fontWeight: "bold" }}
-                >
-                  {event.event} - {event.date}
-                </TableCell>
-              </TableRow>
-
-              {event.sections.map((section, sectionIndex) => (
-                <TableRow key={sectionIndex}>
-                  <TableCell colSpan={13}>
-                    <Accordion>
-                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <Typography>{section.title}</Typography>
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <Table size="medium" aria-label="nested table">
-                          <TableBody>
-                            {event.odds.map((odd, oddIndex) => (
-                              <TableRow key={oddIndex}>
-                                <TableCell>{odd.label}</TableCell>
-                                <TableCell>{event.predictability}</TableCell>
-                                <TableCell>{odd.back}</TableCell>
-                                <TableCell>{odd.adjustBack}</TableCell>
-                                <TableCell>{odd.lay}</TableCell>
-                                <TableCell>{odd.adjustLay}</TableCell>
-                                <TableCell>{odd.probability}</TableCell>
-                                <TableCell>{odd.backValue}</TableCell>
-                                <TableCell>{odd.backValue}</TableCell>
-                                <TableCell>0.00</TableCell>
-                                <TableCell>5.62</TableCell>
-                                <TableCell>5.62</TableCell>
-                                <TableCell>5.62</TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </AccordionDetails>
-                    </Accordion>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </React.Fragment>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div className="overflow-x-auto">
+      <table className="min-w-[1000px] w-full border-collapse">
+        <thead>
+          <tr>
+            <th className="bg-gray-300 font-bold p-2 w-[1/3]">EVENT</th>
+            <th className="bg-green-400 font-bold p-2  w-[1/3]">
+              Predictability
+            </th>
+            <th className="bg-blue-200 font-bold p-2">Back</th>
+            <th className="bg-blue-200 font-bold p-2"></th>
+            <th className="bg-blue-300 font-bold p-2">Adjust Back</th>
+            <th className="bg-orange-300 font-bold p-2">Lay</th>
+            <th className="bg-orange-300 font-bold p-2">Adjust Lay</th>
+            <th className="bg-yellow-300 font-bold p-2">Probability</th>
+            <th className="bg-teal-200 font-bold p-2">Real Back</th>
+            <th className="bg-teal-200 font-bold p-2">Real Lay</th>
+            <th className="bg-green-200 font-bold p-2">Back Value</th>
+            <th className="bg-red-400 font-bold p-2">Lay Value</th>
+            <th className="bg-green-300 font-bold p-2">K-Factor Back</th>
+            <th className="bg-pink-200 font-bold p-2">K-Factor Lay</th>
+            <th className="bg-blue-200 font-bold p-2">Back Amount</th>
+            <th className="bg-blue-200 font-bold p-2">Lay Amount</th>
+            <th className="bg-blue-200 font-bold p-2">Placed Bet</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colSpan="17" className="p-0">
+              <Collapse
+                expandIcon={({ isActive }) => (
+                  <CaretRightOutlined
+                    style={{ color: "#fff" }}
+                    rotate={isActive ? 90 : 0}
+                  />
+                )}
+                defaultActiveKey={[0, 1]}
+              >
+                {data.map((item, index) => (
+                  <Collapse.Panel
+                    header={
+                      <span className="text-[#fff]">{item.headerName}</span>
+                    }
+                    key={index}
+                    className="!bg-[#c00000]"
+                  >
+                    <Collapse accordion defaultActiveKey={0}>
+                      {item.bettings.map((betting, index) => (
+                        <Collapse.Panel
+                          header={
+                            <span className="text-[#000]">
+                              {betting.bettingCategory}
+                            </span>
+                          }
+                          key={index}
+                        >
+                          <table className="w-full border-collapse">
+                            <tbody>
+                              {betting.odd.map((row, index) => (
+                                <tr key={index} className="text-center w-full">
+                                  <td className="p-2 border bg-gray-300">
+                                    {row.event}
+                                  </td>
+                                  <td className="p-2 border bg-green-400 font-bold">
+                                    {row.predictability}
+                                  </td>
+                                  <td className="p-2 border bg-blue-200">
+                                    {row.back}
+                                  </td>
+                                  <td className="p-2 border bg-blue-200">
+                                    {row.backOther}
+                                  </td>
+                                  <td className="p-2 border bg-blue-300">
+                                    {row.adjustBack}
+                                  </td>
+                                  <td className="p-2 border bg-orange-300">
+                                    {row.lay}
+                                  </td>
+                                  <td className="p-2 border bg-orange-300">
+                                    {row.adjustLay}
+                                  </td>
+                                  <td className="p-2 border bg-yellow-300">
+                                    {row.probability}
+                                  </td>
+                                  <td className="p-2 border bg-teal-200">
+                                    {row.realBack}
+                                  </td>
+                                  <td className="p-2 border bg-teal-200">
+                                    {row.realLay}
+                                  </td>
+                                  <td
+                                    className={`p-2 border bg-green-200 ${
+                                      row.backValue.includes("-")
+                                        ? "text-red-600"
+                                        : "text-green-600"
+                                    }`}
+                                  >
+                                    {row.backValue}
+                                  </td>
+                                  <td
+                                    className={`p-2 border bg-red-400 ${
+                                      row.layValue.includes("-")
+                                        ? "text-red-600"
+                                        : "text-green-600"
+                                    }`}
+                                  >
+                                    {row.layValue}
+                                  </td>
+                                  <td
+                                    className={`p-2 border bg-green-300 ${
+                                      row.kFactorBack.includes("-")
+                                        ? "text-red-600"
+                                        : "text-green-600"
+                                    }`}
+                                  >
+                                    {row.kFactorBack}
+                                  </td>
+                                  <td
+                                    className={`p-2 border bg-pink-200 ${
+                                      row.kFactorLay.includes("-")
+                                        ? "text-red-600"
+                                        : "text-green-600"
+                                    }`}
+                                  >
+                                    {row.kFactorLay}
+                                  </td>
+                                  <td className="p-2 border bg-blue-200">
+                                    {row.backAmount}
+                                  </td>
+                                  <td className="p-2 border bg-blue-200">
+                                    {row.layAmount}
+                                  </td>
+                                  <td className="p-2 border bg-blue-200">
+                                    {row.placedBet}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </Collapse.Panel>
+                      ))}
+                    </Collapse>
+                  </Collapse.Panel>
+                ))}
+              </Collapse>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 };
 

@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import TableComponent from "./components/table";
 
-import { data } from "./utils/data";
+import { tableData } from "./utils/data";
 import TokenInput from "./components/tokenInput";
 import BetfairLoginComponent from "./components/betfairLoginComponent";
 import BetfairMoneyComponent from "./components/betfairMoneyComponent";
@@ -20,7 +20,7 @@ function App() {
         <BetfairSettingComponent />
         <MatchOddsComponent />
         <BetfairStatusComponent />
-        <TableComponent data={data} />
+        <TableComponent data={tableData} />
       </div>
     </div>
   );
